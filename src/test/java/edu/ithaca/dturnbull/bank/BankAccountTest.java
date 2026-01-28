@@ -1,7 +1,10 @@
 package edu.ithaca.dturnbull.bank;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class BankAccountTest {
@@ -25,9 +28,20 @@ class BankAccountTest {
     @Test
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
-        assertFalse( BankAccount.isEmailValid(""));         // empty string
-
+        assertFalse(BankAccount.isEmailValid(""));         // empty string
         
+        assertTrue(BankAccount.isEmailValid("abc.def@mail.com"));
+        assertTrue(BankAccount.isEmailValid("abc_d@mail.cc"));
+        assertTrue(BankAccount.isEmailValid("abc-d@mail-archive.com"));
+
+        assertFalse(BankAccount.isEmailValid("abc-@mail.com"));
+        assertFalse(BankAccount.isEmailValid("abc..def@mail.com"));
+        assertFalse(BankAccount.isEmailValid(".abc@mail.com"));
+        assertFalse(BankAccount.isEmailValid("abc#def@mail.com"));
+
+        assertFalse(BankAccount.isEmailValid("abc.def@mail.c"));
+        assertFalse(BankAccount.isEmailValid("abc.def@mail"));
+        assertFalse(BankAccount.isEmailValid("abc.def@mail..com"));
     }
 
     @Test
