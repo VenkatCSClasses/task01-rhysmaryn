@@ -30,17 +30,44 @@ class BankAccountTest {
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
         assertFalse(BankAccount.isEmailValid(""));         // empty string
         
+        // Equivalence class: within-bounds username, within-bounds domain, within-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, YES border case for tld
         assertTrue(BankAccount.isEmailValid("abc.def@mail.com"));
+
+        // Equivalence class: within-bounds username, within-bounds domain, within-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, YES border case for tld
         assertTrue(BankAccount.isEmailValid("abc_d@mail.cc"));
+
+        // Equivalence class: within-bounds username, within-bounds domain, within-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, YES border case for tld
         assertTrue(BankAccount.isEmailValid("abc-d@mail-archive.com"));
 
+        // Equivalence class: out-of-bounds username, within-bounds domain, within-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, YES border case for tld
         assertFalse(BankAccount.isEmailValid("abc-@mail.com"));
+
+        // Equivalence class: out-of-bounds username, within-bounds domain, within-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, YES border case for tld
         assertFalse(BankAccount.isEmailValid("abc..def@mail.com"));
+
+        // Equivalence class: out-of-bounds username, within-bounds domain, within-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, YES border case for tld
         assertFalse(BankAccount.isEmailValid(".abc@mail.com"));
+
+        // Equivalence class: out-of-bounds username, within-bounds domain, within-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, YES border case for tld
         assertFalse(BankAccount.isEmailValid("abc#def@mail.com"));
 
+        // Equivalence class: within-bounds username, within-bounds domain, out-of-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, YES border case for tld
         assertFalse(BankAccount.isEmailValid("abc.def@mail.c"));
+
+        // Equivalence class: within-bounds username, within-bounds domain, out-of-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, NOT border case for tld
         assertFalse(BankAccount.isEmailValid("abc.def@mail"));
+
+        // Equivalence class: within-bounds username, out-of-bounds domain, within-bounds tld
+        // Border case: NOT border case for username, NOT border case for domain, NOT border case for tld
         assertFalse(BankAccount.isEmailValid("abc.def@mail..com"));
     }
 
