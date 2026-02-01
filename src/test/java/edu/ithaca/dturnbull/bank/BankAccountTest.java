@@ -16,14 +16,35 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
     }
 
+    // Equivalence class: 0 < amount < balance
     @Test
-    void withdrawTest() throws InsufficientFundsException{
+    void withdraw_validAmount() throws InsufficientFundsException {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
+
         bankAccount.withdraw(100);
 
         assertEquals(100, bankAccount.getBalance(), 0.001);
-        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
     }
+
+    // Equivalence class: amount == balance (edge case)
+    @Test
+    void withdraw_exactBalance() throws InsufficientFundsException {
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+
+        bankAccount.withdraw(200);
+
+        assertEquals(0, bankAccount.getBalance(), 0.001);
+    }
+
+    // Equivalence class: amount > balance
+    @Test
+    void withdraw_overBalance() {
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+
+        assertThrows(InsufficientFundsException.class,
+            () -> bankAccount.withdraw(300));
+    }
+
 
     @Test
     void isEmailValidTest(){
