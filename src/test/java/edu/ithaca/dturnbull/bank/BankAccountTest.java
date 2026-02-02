@@ -8,12 +8,15 @@ import org.junit.jupiter.api.Test;
 
 
 class BankAccountTest {
-
+    
+    // Equivalence class: initial balance after account creation
     @Test
-    void getBalanceTest() {
+    void getBalance_afterWithdraw() throws InsufficientFundsException {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
 
-        assertEquals(200, bankAccount.getBalance(), 0.001);
+        bankAccount.withdraw(50);
+
+        assertEquals(150, bankAccount.getBalance(), 0.001);
     }
 
     // Equivalence class: 0 < amount < balance
