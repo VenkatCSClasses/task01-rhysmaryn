@@ -61,6 +61,40 @@ class BankAccountTest {
         IllegalArgumentException ex2 = assertThrows(IllegalArgumentException.class,
             () -> bankAccount.withdraw(10.999));
     }
+    
+    // EC1: valid deposit amount
+    @Test
+    void deposit_validAmount() {
+        BankAccount bankAccount = new BankAccount("a@b.com", 100);
+        bankAccount.deposit(50);
+        assertEquals(150, bankAccount.getBalance(), 0.001);
+    }
+
+    // EC2: deposit zero (boundary case)
+    @Test
+    void deposit_zeroAmount() {
+        BankAccount bankAccount = new BankAccount("a@b.com", 100);
+        bankAccount.deposit(0);
+        assertEquals(100, bankAccount.getBalance(), 0.001);
+    }
+
+    // EC3: negative deposit
+    @Test
+    void deposit_negativeAmount() {
+        BankAccount bankAccount = new BankAccount("a@b.com", 100);
+
+        assertThrows(IllegalArgumentException.class,
+            () -> bankAccount.deposit(-10));
+    }
+
+    // EC4: too many decimal places
+    @Test
+    void deposit_tooManyDecimals() {
+        BankAccount bankAccount = new BankAccount("a@b.com", 100);
+
+        assertThrows(IllegalArgumentException.class,
+            () -> bankAccount.deposit(10.999));
+    }
 
 
     @Test
