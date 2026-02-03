@@ -39,6 +39,7 @@ public class BankAccount {
             throw new InsufficientFundsException("Not enough money");
         }
     }
+    
     /**
      * Checks whether a money amount is valid.
      *
@@ -47,8 +48,15 @@ public class BankAccount {
      *         false otherwise
      */
     public static boolean isAmountValid(double amount) {
+    if (amount < 0) {
         return false;
     }
+
+    // Check decimal places (allow at most 2)
+    double rounded = Math.round(amount * 100) / 100.0;
+    return Math.abs(amount - rounded) < 0.0000001;
+    }
+
 
     public static boolean isEmailValid(String email){
         boolean atSymbolFound = false;
