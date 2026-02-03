@@ -104,5 +104,37 @@ class BankAccountTest {
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
     }
+    // ================================
+    // Tests for isAmountValid
+    // ================================
+
+    // EC1: Valid positive amounts with ≤ 2 decimal places
+    @Test
+    void isAmountValid_validPositiveAmount() {
+        assertTrue(BankAccount.isAmountValid(10.00));   // middle case
+        assertTrue(BankAccount.isAmountValid(999.99));  // middle case
+        assertTrue(BankAccount.isAmountValid(0.01));    // boundary case
+    }
+
+    // EC2: Zero amount (boundary case)
+    @Test
+    void isAmountValid_zeroAmount() {
+        assertTrue(BankAccount.isAmountValid(0.00));    // boundary case
+    }
+
+    // EC3: Negative amounts
+    @Test
+    void isAmountValid_negativeAmount() {
+        assertFalse(BankAccount.isAmountValid(-0.01));  // boundary case
+        assertFalse(BankAccount.isAmountValid(-10.00)); // middle case
+    }
+
+    // EC4: More than two decimal places
+    @Test
+    void isAmountValid_tooManyDecimalPlaces() {
+        assertFalse(BankAccount.isAmountValid(1.001));  // boundary case
+        assertFalse(BankAccount.isAmountValid(10.999)); // middle case
+    }
+
 
 }

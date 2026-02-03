@@ -39,7 +39,16 @@ public class BankAccount {
             throw new InsufficientFundsException("Not enough money");
         }
     }
-
+    /**
+     * Checks whether a money amount is valid.
+     *
+     * @param amount the amount to check
+     * @return true if the amount is non-negative and has at most two decimal places,
+     *         false otherwise
+     */
+    public static boolean isAmountValid(double amount) {
+        return false;
+    }
 
     public static boolean isEmailValid(String email){
         boolean atSymbolFound = false;
