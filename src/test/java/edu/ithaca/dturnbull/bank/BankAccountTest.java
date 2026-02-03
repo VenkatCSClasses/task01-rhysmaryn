@@ -62,6 +62,61 @@ class BankAccountTest {
             () -> bankAccount.withdraw(10.999));
     }
     
+    // EC1: valid transfer
+    @Test
+    void transfer_validAmount() throws InsufficientFundsException {
+        BankAccount a = new BankAccount("a@b.com", 200);
+        BankAccount b = new BankAccount("b@b.com", 50);
+
+        a.transfer(100, b);
+
+        assertEquals(100, a.getBalance(), 0.001);
+        assertEquals(150, b.getBalance(), 0.001);
+    }
+
+    // EC2: transfer entire balance
+    @Test
+    void transfer_exactBalance() throws InsufficientFundsException {
+        BankAccount a = new BankAccount("a@b.com", 100);
+        BankAccount b = new BankAccount("b@b.com", 0);
+
+        a.transfer(100, b);
+
+        assertEquals(0, a.getBalance(), 0.001);
+        assertEquals(100, b.getBalance(), 0.001);
+    }
+
+    // EC3: transfer over balance
+    @Test
+    void transfer_overBalance() {
+        BankAccount a = new BankAccount("a@b.com", 50);
+        BankAccount b = new BankAccount("b@b.com", 0);
+
+        assertThrows(InsufficientFundsException.class,
+            () -> a.transfer(100, b));
+    }
+
+    // EC4: negative transfer
+    @Test
+    void transfer_negativeAmount() {
+        BankAccount a = new BankAccount("a@b.com", 100);
+        BankAccount b = new BankAccount("b@b.com", 0);
+
+        assertThrows(IllegalArgumentException.class,
+            () -> a.transfer(-10, b));
+    }
+
+    // EC5: too many decimals
+    @Test
+    void transfer_tooManyDecimals() {
+        BankAccount a = new BankAccount("a@b.com", 100);
+        BankAccount b = new BankAccount("b@b.com", 0);
+
+        assertThrows(IllegalArgumentException.class,
+            () -> a.transfer(10.999, b));
+    }
+
+
     // EC1: valid deposit amount
     @Test
     void deposit_validAmount() {
