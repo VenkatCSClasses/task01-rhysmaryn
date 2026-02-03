@@ -69,9 +69,12 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is invalid
      */
     public void deposit(double amount) {
-        // TODO: implement
+    if (!isAmountValid(amount)) {
+        throw new IllegalArgumentException("Invalid deposit amount");
     }
 
+    balance += amount;
+    }
 
     public static boolean isEmailValid(String email){
         boolean atSymbolFound = false;
