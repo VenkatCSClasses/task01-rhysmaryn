@@ -65,6 +65,16 @@ public class BankAccount {
     }
 
     /**
+    * @post transfers amount from this account to target account
+    * @throws IllegalArgumentException if amount is invalid
+    * @throws InsufficientFundsException if insufficient funds
+    */
+    public void transfer(double amount, BankAccount target)
+            throws InsufficientFundsException {
+        // TODO: implement
+    }
+
+    /**
      * @post increases the balance by amount if amount is valid
      * @throws IllegalArgumentException if amount is invalid
      */
