@@ -71,7 +71,17 @@ public class BankAccount {
     */
     public void transfer(double amount, BankAccount target)
             throws InsufficientFundsException {
-        // TODO: implement
+
+        if (!isAmountValid(amount)) {
+            throw new IllegalArgumentException("Invalid transfer amount");
+        }
+
+        if (amount > balance) {
+            throw new InsufficientFundsException("Not enough money");
+        }
+
+        this.balance -= amount;
+        target.balance += amount;
     }
 
     /**
