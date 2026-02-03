@@ -64,6 +64,14 @@ public class BankAccount {
     return Math.abs(amount - rounded) < 0.0000001;
     }
 
+    /**
+     * @post increases the balance by amount if amount is valid
+     * @throws IllegalArgumentException if amount is invalid
+     */
+    public void deposit(double amount) {
+        // TODO: implement
+    }
+
 
     public static boolean isEmailValid(String email){
         boolean atSymbolFound = false;
