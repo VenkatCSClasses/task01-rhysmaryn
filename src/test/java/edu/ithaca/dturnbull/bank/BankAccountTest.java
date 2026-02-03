@@ -47,6 +47,20 @@ class BankAccountTest {
         assertThrows(InsufficientFundsException.class,
             () -> bankAccount.withdraw(300));
     }
+    @Test
+    void withdraw_invalidAmounts() throws InsufficientFundsException {
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+
+        // Negative amount
+        IllegalArgumentException ex1 = assertThrows(IllegalArgumentException.class,
+            () -> bankAccount.withdraw(-10));
+        // optional: assert something about message
+        // assertTrue(ex1.getMessage().contains("Invalid"));
+
+        // More than 2 decimal places
+        IllegalArgumentException ex2 = assertThrows(IllegalArgumentException.class,
+            () -> bankAccount.withdraw(10.999));
+    }
 
 
     @Test
@@ -95,18 +109,26 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid("abc.def@mail..com"));
     }
 
-    @Test
+   @Test
     void constructorTest() {
+        // Valid case
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
-
         assertEquals("a@b.com", bankAccount.getEmail());
         assertEquals(200, bankAccount.getBalance(), 0.001);
-        //check for exception thrown correctly
-        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+
+        // Invalid email
+        assertThrows(IllegalArgumentException.class,
+            () -> new BankAccount("", 100));
+
+        // Invalid starting balance: negative amount
+        assertThrows(IllegalArgumentException.class,
+            () -> new BankAccount("a@b.com", -50));
+
+        // Invalid starting balance: more than 2 decimal places
+        assertThrows(IllegalArgumentException.class,
+            () -> new BankAccount("a@b.com", 10.999));
     }
-    // ================================
-    // Tests for isAmountValid
-    // ================================
+
 
     // EC1: Valid positive amounts with ≤ 2 decimal places
     @Test
